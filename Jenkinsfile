@@ -21,7 +21,7 @@ pipeline{
             steps{
                 echo "Pushing Docker Image"
                 withCredentials([usernamePassword(credentialsID: 'dockerhubcredential', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
-                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                     sh "docker push $DOCKER_IMAGE:$IMAGE_TAG"
                 }
             }
