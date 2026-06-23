@@ -18,8 +18,8 @@ variable "ports" {
 
 variable "vpc_cidr" {
   description = "List of IP addresses allowed to access the instance."
-  type        = list(string)
-  default     = ["10.0.0.0/16"]
+  type        = string
+  default     = "10.0.0.0/16"
 }
 
 variable "key_name" {
