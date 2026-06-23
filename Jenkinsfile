@@ -51,5 +51,17 @@ pipeline{
             }
         }
     }
+    post{
+        success{
+            echo "Pipeline executed successfully"
+        }
+        failure{
+            echo "Pipeline execution failed"
+        }
+        always{
+            echo "Cleaning up Docker Images"
+            sh "docker rmi $DOCKER_IMAGE:$IMAGE_TAG || true"
+        }
+    }
 
 }
