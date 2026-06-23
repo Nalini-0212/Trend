@@ -15,7 +15,7 @@ spec:
         app: trend
     spec:
       imagePullSecrets:
-        - name:  Secret-dockerhub
+        - name:  secret-dockerhub
       containers:
         - name: demo-trend-container
           image: naliniselv/docker:v1
@@ -29,4 +29,6 @@ spec:
               memory: "128Mi"
               cpu: "500m"
             
+    
+
     
