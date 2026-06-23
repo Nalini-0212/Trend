@@ -31,11 +31,16 @@ pipeline{
         stage ('Deploy Docker Image on Kubernetes cluster'){
             steps{
                 echo "Deploying Docker Image on Kubernetes cluster"
-                sh '''
-                aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
-                kubectl apply -f secret.yaml
-                kubectl apply -f service.yaml
-                kubectl apply -f Deployment.yaml
+                withCredentials([usernamePassword(credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                    sh '''
+                    aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                    aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                    aws configure set default.region $AWS_REGION
+                    aws sts get-caller-identity
+                    aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
+                    kubectl apply -f secret.yaml
+                    kubectl apply -f service.yaml
+                    kubectl apply -f Deployment.yaml
                 '''
             }
         }
