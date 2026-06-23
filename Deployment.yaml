@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: trend
+  tier: 1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: trend
+  template:
+    metadata:
+      labels:
+        app: trend
+    spec:
+      containers:
+        - name: demo-trend-container
+          image: naliniselv/docker:v1
+          ports:
+            - containerPort: 80
+    
