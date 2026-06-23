@@ -14,11 +14,11 @@ spec:
       labels:
         app: trend
     spec:
+      imagePullSecrets:
+        - name:  Secret-dockerhub
       containers:
         - name: demo-trend-container
           image: naliniselv/docker:v1
-          imagePullSecrets:
-            - name:  Secret-dockerhub
           ports:
             - containerPort: 80
           resources:
