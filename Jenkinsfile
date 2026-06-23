@@ -29,7 +29,7 @@ pipeline{
             }
         }
 
-        stage ('Deploy Docker Image on Kubernetes cluster'){
+        stage ('Deploy Docker Image on Kubernetes cluster and verify deployment'){
             steps{
                 echo "Deploying Docker Image on Kubernetes cluster"
                 withCredentials([usernamePassword(credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]){
@@ -39,24 +39,18 @@ pipeline{
                     kubectl apply -f secret.yaml
                     kubectl apply -f service.yaml
                     kubectl apply -f Deployment.yaml
+                    echo "Verifying Application Deployment"
+                    kubectl get pods
+                    kubectl get services
+                    kubectl get deployments
+
                 '''
             }
 
         
        }
     }
-
-        stage('Verify Application Deployment'){
-            steps{
-                echo "Verifying Application Deployment"
-                sh '''
-                kubectl get pods
-                kubectl get services
-                kubectl get deployments
-                '''
-            }
-        }
-    }
+}
     post{
         success{
             echo "Pipeline executed successfully"
