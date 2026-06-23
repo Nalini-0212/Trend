@@ -28,6 +28,7 @@ pipeline{
                 }
             }
         }
+
         stage ('Deploy Docker Image on Kubernetes cluster'){
             steps{
                 echo "Deploying Docker Image on Kubernetes cluster"
@@ -40,7 +41,10 @@ pipeline{
                     kubectl apply -f Deployment.yaml
                 '''
             }
-        }
+
+        
+       }
+    }
 
         stage('Verify Application Deployment'){
             steps{
