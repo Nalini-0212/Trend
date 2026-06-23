@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: trend
+  tier: 1
+spec:
+  type: Loadbalancer
+  selector:
+    matchLabels:
+      app: trend
+  ports:
+    - port: 3000
+      targetPort: 80
+
+      
+      
